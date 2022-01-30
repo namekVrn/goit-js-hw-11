@@ -1,9 +1,12 @@
 export const renderHtml = (dataObj) =>{
     const gallery = document.querySelector('.gallery');
+    
     const markup = dataObj.map((elem,index)=>{
         return `<div class="photo-card">
         <div class="img_box">
+            <a class="gallery__item" href="${elem.webformatURL}">
             <img class="imgLink"src="${elem.webformatURL}" alt="${elem.tags}" loading="lazy" />
+            </a>
         </div>
         <div class="info">
           <p class="info-item">
