@@ -7,7 +7,7 @@ import { renderHtml } from './modules/renderHtml';
 const searchForm = document.querySelector('.search-form')
 const loadMore = document.querySelector('.load-more')
 const btnSerch = document.querySelector('.btn-serch')
-
+let countTotalPage = 1;
 const getRequesApi = new GetRequesApi() //Экземпляр класса
 loadMore.style.display = 'none';
 searchForm.addEventListener('submit', onSerch)
@@ -24,11 +24,14 @@ function onSerch(e){
         }
         
         getRequesApi.getRequesImg().then((response)=>{
-            console.log(response)
-       if(response === 0){
+
+            countTotalPage += response.hits.length -1
+            console.log(countTotalPage)
+       if(response.hits.length === 0){
         Notify.warning("Sorry, there are no images matching your search query. Please try again.");
+            countTotalPage = 1 
        }
-      renderHtml(response)
+      renderHtml(response.hits)
     
       })
       loadMore.style.display = 'block';
@@ -40,9 +43,23 @@ function onLoadMore(){
         return
     }
     getRequesApi.getRequesImg().then((response)=>{
-      
-       renderHtml(response)
-       Notify.success(`Найдено: ${response.length} картинок`);  
+        console.log(response.hits)
+        countTotalPage += response.hits.length
+        console.log(countTotalPage)
+        renderHtml(response.hits)
+        if(countTotalPage >= response.totalHits){
+        loadMore.style.display = 'none';
+        Notify.warning("We're sorry, but you've reached the end of search results.");
+        setTimeout(() => {
+            alert('Через 10 секунд страница будет перезагруженна')
+            setTimeout(()=>{
+                location.reload()
+            }, 10000)
+        }, 2000);
+       }
+
+       console.log(response.totalHits);  
+       console.log(getRequesApi.totalHits);  
        })
 }
 

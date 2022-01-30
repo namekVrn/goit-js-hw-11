@@ -3,7 +3,7 @@ export default class GetRequestApi {
     constructor(){
       this.serchQuery = '';
       this.page = 1;
-      this.totalHits = '';
+      this.totalHits = 1;
     }
     async getRequesImg(){
         try {
@@ -23,8 +23,8 @@ export default class GetRequestApi {
                     console.log(this)
                     this.incrementPage()
                     // console.log(response.data)
-                    // this.totalHits(response.data.totalHits)
-                    return response.data.hits
+                    this.totalHits = response.data.totalHits
+                    return response.data
 
               } catch (error) {
                 console.error(error);
@@ -42,7 +42,7 @@ export default class GetRequestApi {
     set query(newQuery){
      this.serchQuery = newQuery;
     }
-    
+   
     // get totalHits(){
     //   return this.totalHits;
     // }
