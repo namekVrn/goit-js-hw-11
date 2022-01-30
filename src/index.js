@@ -3,7 +3,8 @@ import SimpleLightbox from 'simplelightbox'; //Галерея картинок
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import GetRequesApi from './modules/GetRequestApi'; //Класс всех методов для работы с API
 import { Notify } from 'notiflix/build/notiflix-notify-aio'; // Модуль уведомлений 
-const axios = require('axios'); // Бтблиотека для работы с промисами
+const axios = require('axios'); // Библиотека для работы с промисами
+const uikit = require('uikit'); // 
 const gallery = document.querySelector('.gallery');
 import { renderHtml } from './modules/renderHtml'; // Рендер иображений
 const searchForm = document.querySelector('.search-form');
@@ -11,7 +12,6 @@ const loadMore = document.querySelector('.load-more');
 const btnSerch = document.querySelector('.btn-serch');
 const inputSerch = document.querySelector('.input-serch');
 const galleryItem = document.querySelector('.gallery__item');
-
 
 
 let countTotalPage = 1;
@@ -39,12 +39,13 @@ function onSerch(e) {
       Notify.warning('Sorry, there are no images matching your search query. Please try again.');
       countTotalPage = 1;
     }
+    loadMore.setAttribute('uk-spinner', 'true')
     renderHtml(response.hits);
+    loadMore.removeAttribute('uk-spinner')
     const lightbox = new SimpleLightbox('.gallery a', {
         captionDelay: 250,
         captionPosition: 'bottom',
         captionClass: "center"
-    
     });
 
   });
@@ -61,7 +62,11 @@ function onLoadMore() {
     countTotalPage += response.hits.length;
     console.log(countTotalPage);
     console.log(response.totalHits);
-    renderHtml(response.hits);
+    loadMore.setAttribute('uk-spinner', 'ratio:1')
+    setTimeout(()=>{
+        renderHtml(response.hits);
+        loadMore.removeAttribute('uk-spinner')
+    }, 500);
     
     const lightbox = new SimpleLightbox('.gallery a', {
         captionDelay: 250,
