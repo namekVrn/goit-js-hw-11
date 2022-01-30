@@ -18,11 +18,12 @@ let countTotalPage = 1;
 const getRequesApi = new GetRequesApi(); //Экземпляр класса
 
 loadMore.style.display = 'none';
+
 searchForm.addEventListener('submit', onSerch);
 loadMore.addEventListener('click', onLoadMore);
+
 function onSerch(e) {
   e.preventDefault();
-  // gallery.innerHtml = "";
   getRequesApi.query = e.target.searchQuery.value.trim();
   clearingHtml();
   getRequesApi.resetPage();
@@ -34,7 +35,6 @@ function onSerch(e) {
   getRequesApi.getRequesImg().then(response => {
     Notify.success(`Ура! Мы нашли изображения с общим количеством просмотров: ${response.totalHits}`);
     countTotalPage += response.hits.length - 1;
-    console.log(response.hits);
     if (response.hits.length === 0) {
       Notify.warning('Sorry, there are no images matching your search query. Please try again.');
       countTotalPage = 1;
@@ -58,10 +58,7 @@ function onLoadMore() {
     return;
   }
   getRequesApi.getRequesImg().then(response => {
-    console.log(response.hits);
     countTotalPage += response.hits.length;
-    console.log(countTotalPage);
-    console.log(response.totalHits);
     loadMore.setAttribute('uk-spinner', 'ratio:1')
     setTimeout(()=>{
         renderHtml(response.hits);
@@ -86,8 +83,6 @@ function onLoadMore() {
       }, 2000);
     }
 
-    console.log(response.totalHits);
-    console.log(getRequesApi.totalHits);
   });
 }
 
