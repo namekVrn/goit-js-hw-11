@@ -33,7 +33,11 @@ function onSerch(e) {
   }
 
   getRequesApi.getRequesImg().then(response => {
-    Notify.success(`Ура! Мы нашли изображения с общим количеством просмотров: ${response.totalHits}`);
+    hidenBtn();
+      console.log(response.totalHits)
+      if(response.totalHits > 0){
+        Notify.success(`Ура! Мы нашли изображения с общим количеством просмотров: ${response.totalHits}`);
+      }
     countTotalPage += response.hits.length - 1;
     if (response.hits.length === 0) {
       Notify.warning('Sorry, there are no images matching your search query. Please try again.');
@@ -88,6 +92,12 @@ function onLoadMore() {
 
 function clearingHtml() {
   gallery.innerHTML = '';
+}
+function hidenBtn(){
+    loadMore.style.display = 'none';
+    setTimeout(()=>{
+        loadMore.style.display = 'block';
+    }, 1000)
 }
 // function onLoadMore(){
 //     getRequesApi.getRequesImg().then((response)=>{
