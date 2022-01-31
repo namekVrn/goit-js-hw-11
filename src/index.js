@@ -67,15 +67,16 @@ function onLoadMore() {
     setTimeout(()=>{
         renderHtml(response.hits);
         loadMore.removeAttribute('uk-spinner')
+        const lightbox = new SimpleLightbox('.gallery a', {
+          captionDelay: 250,
+          captionPosition: 'bottom',
+          captionClass: "center"
+      
+      });
+      lightbox.refresh();
     }, 500);
     
-    const lightbox = new SimpleLightbox('.gallery a', {
-        captionDelay: 250,
-        captionPosition: 'bottom',
-        captionClass: "center"
     
-    });
-    lightbox.refresh();
     if (countTotalPage >= response.totalHits) {
       loadMore.style.display = 'none';
       Notify.warning("We're sorry, but you've reached the end of search results.");
