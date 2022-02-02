@@ -23,6 +23,7 @@ searchForm.addEventListener('submit', onSerch);
 loadMore.addEventListener('click', onLoadMore);
 
 function onSerch(e) {
+  loadMore.style.display = 'none';
   e.preventDefault();
   getRequesApi.query = e.target.searchQuery.value.trim();
   clearingHtml();
@@ -33,7 +34,7 @@ function onSerch(e) {
   }
 
   getRequesApi.getRequesImg().then(response => {
-    loadMore.style.display = 'none';
+    
     // hidenBtn();
       console.log(response.totalHits)
       if(response.totalHits > 0){
