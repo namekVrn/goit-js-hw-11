@@ -44,7 +44,10 @@ function onSerch(e) {
       countTotalPage = 1;
     }
     loadMore.setAttribute('uk-spinner', 'true')
+    loadMore.style.display = 'none';
     renderHtml(response.hits);
+    hidenBtn()
+   
     loadMore.removeAttribute('uk-spinner')
     const lightbox = new SimpleLightbox('.gallery a', {
         captionDelay: 250,
@@ -65,6 +68,7 @@ function onLoadMore() {
     countTotalPage += response.hits.length;
     loadMore.setAttribute('uk-spinner', 'ratio:1')
     setTimeout(()=>{
+        loadMore.style.display = 'none';
         renderHtml(response.hits);
         loadMore.style.display = 'block';
         loadMore.removeAttribute('uk-spinner')
