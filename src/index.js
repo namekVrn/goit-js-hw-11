@@ -32,9 +32,10 @@ function onSerch(e) {
     Notify.warning('Нужно что-то найти');
     return;
   }
+ 
 
   getRequesApi.getRequesImg().then(response => {
-    
+   
     // actionBtn();
       console.log(response.totalHits)
       if(response.totalHits > 0){
@@ -44,6 +45,8 @@ function onSerch(e) {
     if (response.hits.length === 0) {
       Notify.warning('Sorry, there are no images matching your search query. Please try again.');
       countTotalPage = 1;
+      loadMore.style.display = 'none';
+      return
     }
     loadMore.setAttribute('uk-spinner', 'true')
     
