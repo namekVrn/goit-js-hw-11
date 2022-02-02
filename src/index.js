@@ -23,7 +23,7 @@ searchForm.addEventListener('submit', onSerch);
 loadMore.addEventListener('click', onLoadMore);
 
 function onSerch(e) {
-  loadMore.style.display = 'none';
+  loadMore.style.display = 'none'; // Тут мы кнопку скрываем 
   e.preventDefault();
   getRequesApi.query = e.target.searchQuery.value.trim();
   clearingHtml();
@@ -35,7 +35,7 @@ function onSerch(e) {
 
   getRequesApi.getRequesImg().then(response => {
     
-    // hidenBtn();
+    // actionBtn();
       console.log(response.totalHits)
       if(response.totalHits > 0){
         Notify.success(`Ура! Мы нашли изображения с общим количеством просмотров: ${response.totalHits}`);
@@ -48,7 +48,7 @@ function onSerch(e) {
     loadMore.setAttribute('uk-spinner', 'true')
     
     renderHtml(response.hits);
-    hidenBtn()
+    actionBtn() // показываем кнопку 
    
     loadMore.removeAttribute('uk-spinner')
     const lightbox = new SimpleLightbox('.gallery a', {
@@ -101,7 +101,7 @@ function onLoadMore() {
 function clearingHtml() {
   gallery.innerHTML = '';
 }
-function hidenBtn(){
+function actionBtn(){
     // loadMore.style.display = 'none';
     setTimeout(()=>{
         loadMore.style.display = 'block';
