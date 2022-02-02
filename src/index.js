@@ -53,7 +53,7 @@ function onSerch(e) {
     });
 
   });
-  loadMore.style.display = 'block';
+  
 }
 
 function onLoadMore() {
@@ -66,6 +66,7 @@ function onLoadMore() {
     loadMore.setAttribute('uk-spinner', 'ratio:1')
     setTimeout(()=>{
         renderHtml(response.hits);
+        loadMore.style.display = 'block';
         loadMore.removeAttribute('uk-spinner')
         const lightbox = new SimpleLightbox('.gallery a', {
           captionDelay: 250,
