@@ -33,7 +33,8 @@ function onSerch(e) {
   }
 
   getRequesApi.getRequesImg().then(response => {
-    hidenBtn();
+    loadMore.style.display = 'none';
+    // hidenBtn();
       console.log(response.totalHits)
       if(response.totalHits > 0){
         Notify.success(`Ура! Мы нашли изображения с общим количеством просмотров: ${response.totalHits}`);
@@ -44,7 +45,7 @@ function onSerch(e) {
       countTotalPage = 1;
     }
     loadMore.setAttribute('uk-spinner', 'true')
-    loadMore.style.display = 'none';
+    
     renderHtml(response.hits);
     hidenBtn()
    
@@ -100,7 +101,7 @@ function clearingHtml() {
   gallery.innerHTML = '';
 }
 function hidenBtn(){
-    loadMore.style.display = 'none';
+    // loadMore.style.display = 'none';
     setTimeout(()=>{
         loadMore.style.display = 'block';
     }, 1000)
